@@ -1,0 +1,58 @@
+﻿@model Ecole42WebUI.Areas.Admin.ViewModels.FunctionViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section scripts{
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/super-build/ckeditor.js"></script>
+    <script src="/js/update-function.js"></script>
+}
+@section heads{
+    <link rel="stylesheet" href="~/css/myckeditor.css" />
+}
+
+<div class="container mt-0 ml-0">
+    <form action="/admin/update-function" id="update-form" enctype="multipart/form-data" method="post">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Fonksiyon Güncelle</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <input hidden name="ID" value="@Model.ProjectFunction.FunctionID" />
+                    <div class="col-12 form-group">
+                        <label for="Name">Fonksiyon Adı</label>
+                        <input maxlength="100" type="text" value="@Model.ProjectFunction.Function.Name" name="Name" class="form-control" required />
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="projectID">Proje</label>
+                        <select class="form-control" name="projectID">
+                            <optgroup label="Proje seçiniz">
+                                @foreach (var item in Model.Projects)
+                                {
+                                    if (Model.ProjectFunction.ProjectID != item.ID)
+                                    {
+                                        <option value="@item.ID">@item.Title</option>
+                                    }
+                                    else
+                                    {
+                                        <option selected value="@item.ID">@item.Title</option>
+                                    }
+                                }
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="Description">Açıklama</label>
+                        <textarea id="editor1" data-id="@Model.ProjectFunction.FunctionID" name="Description"></textarea>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="card-footer d-sm-flex justify-content-between align-items-center">
+                <button type="submit" class="btn btn-primary">Güncelle</button>
+            </div>
+        </div>
+    </form>
+</div>
+

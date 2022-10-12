@@ -1,0 +1,9 @@
+body{
+    background-image: url('/Admin/images/intra-bg.jpg');
+    background-size: cover;
+    font-size: 1.1rem;
+}
+
+.footer{
+    background-color:transparent!important;
+}

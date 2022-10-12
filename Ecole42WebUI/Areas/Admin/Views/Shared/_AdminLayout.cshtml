@@ -1,0 +1,221 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    string email = Context.Session.GetString("Email");
+    if (string.IsNullOrEmpty(email))
+    {
+        Context.Response.Redirect("/admin/login");
+    }
+    string id = Context.Session.GetString("ID");
+    string name = Context.Session.GetString("Name");
+    string surname = Context.Session.GetString("Surname");
+    string createDate = Context.Session.GetString("CreateDate");
+    string lastDateTime = Context.Session.GetString("LastDateTime");
+    string role = Context.Session.GetString("Role");
+    string image = Context.Session.GetString("Image");
+    string intraID = Context.Session.GetString("intraID");
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="keywords" content="" />
+    <meta name="author" content="" />
+    <meta name="robots" content="" />
+    <meta name="viewport" content="">
+    <meta name="description" content="" />
+    <meta property="og:title" content="" />
+    <meta property="og:description" content="" />
+    <meta property="og:image" content="" />
+    <meta name="format-detection" content="telephone=no">
+    <title>Admin Paneli</title>
+
+    <link rel="icon" type="image/png" sizes="16x16" href="/Admin/images/logos/42_Logo.svg">
+    <link rel="stylesheet" href="/Admin/vendor/chartist/css/chartist.min.css">
+    <link href="/Admin/vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="/Admin/css/style.css" rel="stylesheet">
+    <link href="/Admin/vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    @RenderSection("heads", required: false)
+</head>
+<body>
+
+
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+
+    <div id="main-wrapper">
+
+        <div class="nav-header">
+
+            <a href="/admin/dashboard" class="brand-logo">
+                <img src="/Admin/images/logos/42_Logo.svg" width="50" height="50" />
+            </a>
+            <div class="nav-control">
+                <div class="hamburger">
+                    <span class="line"></span><span class="line"></span><span class="line"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="header">
+            <div class="header-content">
+                <nav class="navbar navbar-expand">
+                    <div class="collapse navbar-collapse justify-content-between">
+                        <div class="header-left">
+                            <a class="h5 text-black" href="/">ANA SAYFA</a>
+                            <a class="h5 text-black ml-3" href="/projects">PROJELER</a>
+                            <a class="h5 text-black ml-3" href="/articles">MAKALELER</a>
+                            <a class="h5 text-black ml-3" href="/questions">SORULAR</a>
+                        </div>
+                        <ul class="navbar-nav header-right main-notification">
+                            <li class="nav-item dropdown header-profile">
+                                <a class="nav-link" href="#" role="button" data-toggle="dropdown">
+                                    @if (image == "ADMIN")
+                                    {
+                                        <img src="~/Admin/images/admin_icon.png"  width="15"/>
+                                    }
+                                    else
+                                    {
+                                        <img src="@image"  width="15"/>
+                                      
+                                    }                                  
+                                    <div class="header-info">
+                                        <span>@name @surname </span>
+                                        <small>@role</small>
+                                    </div>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="/admin/logout" class="dropdown-item ai-icon">
+                                        <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                                        <span class="ml-2">Çıkış Yap</span>
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+
+        <div class="deznav">
+            <div class="deznav-scroll">
+                <ul class="metismenu mt-3" id="menu">
+                    <li>
+                        <a class="ai-icon" href="/admin/dashboard" aria-expanded="false">
+                                <i class="flaticon-381-menu-1"></i>
+                                <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    @if (email == "ermandgs74@gmail.com")
+                    {
+                        <li>
+                            <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                                <i class="flaticon-153-user"></i>
+                                <span class="nav-text">Admin Ayarları</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="/admin/add-user">Admin Ekle</a></li>
+                                <li><a href="/admin/list-user">Admin Listele</a></li>
+                            </ul>
+                        </li>
+                    }
+                    @if (role == "ADMIN")
+                    {
+                        <li>
+                            <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                                <i class="flaticon-019-add-user"></i>
+                                <span class="nav-text">Kullanıcı Ayarları</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="/admin/list-site-user">Kullanıcı Listesi</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                                <i class="flaticon-381-add-1"></i>
+                                <span class="nav-text">Proje Ayarları</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="/admin/add-project">Proje Ekle</a></li>
+                                <li><a href="/admin/list-project">Proje Listele</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                                <i class="flaticon-381-add-1"></i>
+                                <span class="nav-text">Proje Fonksiyon Ayarları</span>
+                            </a>
+                            <ul aria-expanded="false">
+                                <li><a href="/admin/add-function">Proje Fonksiyon Ekle</a></li>
+                                <li><a href="/admin/list-function">Proje Fonksiyonlarını Listele</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="ai-icon" href="/admin/list-category" aria-expanded="false">
+                                <i class="flaticon-381-add-1"></i>
+                                <span class="nav-text">Proje Kategori Ayarları</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="ai-icon" href="/admin/list-useful-link" aria-expanded="false">
+                                <i class="flaticon-381-add-1"></i>
+                                <span class="nav-text">Proje Yararlı Link Ayarları</span>
+                            </a>
+                        </li>
+                    }
+                    <li>
+                        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="flaticon-381-add-1"></i>
+                            <span class="nav-text">Makaleler</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/admin/add-article">Makale Ekle</a></li>
+                            <li><a href="/admin/list-article">Makalelerim</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+                            <i class="flaticon-381-add-1"></i>
+                            <span class="nav-text">Sorular</span>
+                        </a>
+                        <ul aria-expanded="false">
+                            <li><a href="/admin/add-question">Soru Ekle</a></li>
+                            <li><a href="/admin/list-question">Sorularım</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content-body">
+            @RenderBody()
+        </div>
+
+
+    </div>
+
+
+    <script src="/Admin/vendor/global/global.min.js"></script>
+    <script src="/Admin/vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <script src="/Admin/vendor/chart.js/Chart.bundle.min.js"></script>
+
+    <script src="/Admin/js/dashboard/dashboard-1.js"></script>
+    <script src="/Admin/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="/Admin/js/custom.min.js"></script>
+    <script src="/Admin/js/deznav-init.js"></script>
+    <script src="/Admin/js/demo.js"></script>
+    <script src="~/Admin/js/bootbox.min.js"></script>
+    <script src="~/js/admin-layout.js"></script>
+    @RenderSection("scripts", required: false)
+
+</body>
+
+</html>

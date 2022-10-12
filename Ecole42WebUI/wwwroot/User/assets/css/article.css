@@ -1,0 +1,15 @@
+﻿.gridjs-pages .gridjs-currentPage {
+    background-color: #3980c0 !important;
+}
+
+.gridjs-pages button {
+    padding: 0 !important;
+}
+
+.gridjs-head{
+    display: flex;
+}
+
+#addArticle{
+    margin-left: 1rem;
+}

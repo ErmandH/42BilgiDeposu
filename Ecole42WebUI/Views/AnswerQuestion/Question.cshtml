@@ -1,0 +1,108 @@
+@using Microsoft.AspNetCore.Http
+@model Tuple<IEnumerable<AnswerQuestion>, Question>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+	string email = "";
+	string role = "";
+	Guid id = Guid.Empty;
+	if (Context.Session.GetString("Email") != null)
+	{
+		email = Context.Session.GetString("Email");
+		id = new Guid(Context.Session.GetString("ID"));
+		role = Context.Session.GetString("Role");
+	}
+}
+
+@section heads{
+    <link rel="stylesheet" href="/User/assets/css/show-question.css">
+	<link rel="stylesheet" href="~/css/myckeditor.css" />
+}
+
+@section scripts{
+	<script src="~/Admin/js/bootbox.min.js"></script>
+	<script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/super-build/ckeditor.js"></script>
+	<script src="/js/show-question.js"></script>
+	<script src="/js/update-site-answer.js"></script>
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title--large">@Model.Item2.Title.ToUpper()</h4>
+                <div>
+                    @if (@Model.Item2.User.Name == "Admin")
+                    {
+                        <span id="question-info" class="text-muted">YAZAR: @Model.Item2.Admin.Name.ToUpper() @Model.Item2.Admin.Surname.ToUpper() / TARİH: @Model.Item2.CreateDate</span>
+                    }
+                    else
+                    {
+                        <span id="question-info" class="text-muted">YAZAR: @Model.Item2.User.Name.ToUpper() @Model.Item2.User.Surname.ToUpper() / TARİH: @Model.Item2.CreateDate</span>
+                    }
+                </div>             
+            </div>
+            <div class="card-body">
+                @Html.Raw(Model.Item2.Description)
+            </div>
+			<hr>
+			<div class="card-header">
+				<h4 class="card-title--large">Cevaplar(@Model.Item1.Count())</h4>
+			</div>
+			@if (@Model.Item1.Count() > 0)
+			{
+				foreach (var answer in Model.Item1)
+				{
+					<div class="card answer-card">
+						<div class="card-header d-flex justify-content-between align-items-center">
+							@if (answer.Answer.User.Name == "Admin")
+							{
+								<span id="question-info" class="text-muted">@answer.Answer.Admin.Name.ToUpper() @answer.Answer.Admin.Surname.ToUpper()  @answer.CreateDate TARİHİNDE CEVAP VERDİ
+								</span>
+							}
+							else
+							{
+								<span id="question-info" class="text-muted">@answer.Answer.User.Name.ToUpper() @answer.Answer.User.Surname.ToUpper() @answer.CreateDate TARİHİNDE CEVAP VERDİ
+								</span>
+							}
+							@if (answer.Answer.UserID == id || answer.Answer.AdminID == id || role == "ADMIN")
+							{
+								<div data-id="@answer.AnswerID">
+									<a  data-id="@answer.AnswerID" class="btnEdit px-2 link-primary" style="cursor: pointer;">Düzenle</a>
+									<a  data-id="@answer.AnswerID" class="btnDelete px-2 link-danger" style="cursor: pointer;">Sil</a>
+								</div>
+							}
+						</div>
+						<div class="card-body">
+							<div class="answer-content" data-id="@answer.AnswerID">
+								@Html.Raw(answer.Answer.Description)
+							</div>						
+						</div>
+				</div>
+				}				
+			}
+			@if (!string.IsNullOrEmpty(email))
+			{
+				<div class="card">
+					<div class="card-header d-flex justify-content-between">
+						<h4 class="card-title--large">Cevap Ver</h4>					
+					</div>
+					<div class="card-body">
+						<form id="add-form" data-id="@Model.Item2.ID" method="POST" enctype="multipart/form-data">
+							<div class="row gy-3">
+								<div class="col-12">
+									<textarea id="answer-editor" name="Description"></textarea>
+								</div>
+								<div class="col-3">
+									<button type="submit" class="btn btn-primary">Cevapla</button>
+								</div>
+							</div>
+						</form>					
+					</div>
+				</div>
+			}
+			
+			
+        </div>
+    </div>
+</div>

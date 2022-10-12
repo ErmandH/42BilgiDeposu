@@ -1,0 +1,39 @@
+﻿@model Ecole42Entity.Entity.Article
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section scripts{
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/super-build/ckeditor.js"></script>
+    <script src="/js/update-article.js"></script>
+}
+@section heads{
+    <link rel="stylesheet" href="~/css/myckeditor.css" />
+}
+
+<div class="container mt-0 ml-0">
+    <form id="update-form" enctype="multipart/form-data" method="post">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Makale Güncelle</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <input hidden name="ID" value="@Model.ID" />
+                    <div class="col-12 form-group">
+                        <label for="Title">Makale Başlığı</label>
+                        <input maxlength="100" type="text" value="@Model.Title" name="Title" class="form-control" required />
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="Description">Açıklama</label>
+                        <textarea id="editor1" data-id="@Model.ID" name="Description"></textarea>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card-footer d-sm-flex justify-content-between align-items-center">
+                <button type="submit" class="btn btn-primary">Güncelle</button>
+            </div>
+        </div>
+    </form>
+</div>
+

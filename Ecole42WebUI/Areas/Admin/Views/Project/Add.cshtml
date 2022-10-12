@@ -1,0 +1,55 @@
+﻿@model Ecole42WebUI.Areas.Admin.ViewModels.ProjectViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section scripts{
+    <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/super-build/ckeditor.js"></script>
+    <script src="/js/add-project.js"></script>
+}
+@section heads{ 
+    <link rel="stylesheet" href="~/css/myckeditor.css" />
+}
+
+<div class="container mt-0 ml-0">
+    <form action="/admin/add-project" id="add-form" enctype="multipart/form-data" method="post">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">Proje Ekle</h5>
+            </div>
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-12 form-group">
+                        <label for="Title">Proje Adı</label>
+                        <input maxlength="100" type="text" name="Title" class="form-control" required />
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="catID">Proje Kategorisi</label>
+                        <select class="form-control" name="catID">
+                            <optgroup label="Kategori seçiniz">
+                                @foreach (var item in Model.Categories)
+                                {
+                                    <option value="@item.ID">@item.Name</option>
+                                }
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="ShortDescription">Kısa Açıklama</label>
+                        <textarea id="editor1" name="ShortDescription"></textarea>
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="Description">Açıklama</label>
+                        <textarea id="editor2" name="Description"></textarea>
+                    </div>
+                    
+                </div>
+
+            </div>
+            <div class="card-footer d-sm-flex justify-content-between align-items-center">   
+                <button type="submit" class="btn btn-primary">Ekle</button>
+            </div>
+        </div>
+    </form>
+</div>
+

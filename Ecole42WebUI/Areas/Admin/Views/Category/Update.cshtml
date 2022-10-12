@@ -1,0 +1,29 @@
+﻿@model Ecole42Entity.Entity.Category
+
+<div class="modal fade" tabindex="-1" role="dialog" id="updateModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kategori Güncelle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="update-form" method="post">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <input type="hidden" name="ID" value="@Model.ID" />
+                        <div class="col-12 form-group">
+                            <label for="Name">Ad</label>
+                            <input type="text" class="form-control" value="@Model.Name" name="Name" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btnSubmitUpdate" class="btn btn-primary">Güncelle</button>
+                    <button type="button" id="btnCloseUpdateModal" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

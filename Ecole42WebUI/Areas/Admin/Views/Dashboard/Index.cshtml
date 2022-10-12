@@ -1,0 +1,118 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@{
+    ViewData["Title"] = "Admin Paneli";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    string name = Context.Session.GetString("Name");
+    string surname = Context.Session.GetString("Surname");
+    string email = Context.Session.GetString("Email");
+    string image = Context.Session.GetString("Image");
+    string campus = Context.Session.GetString("Campus");
+    string level = Context.Session.GetString("Level");
+    string afterDecimal = "";
+    if (!string.IsNullOrEmpty(level))
+        afterDecimal = level.Substring(level.Length - 2);
+    string date = Context.Session.GetString("Date");
+    string wallet = Context.Session.GetString("Wallet");
+    string evaluation = Context.Session.GetString("Evaluation");
+    string role = Context.Session.GetString("Role");
+    string login = Context.Session.GetString("Username");
+    string coalition_bg = Context.Session.GetString("CoalitionBackground");
+    string coalition_name = Context.Session.GetString("CoalitionName");
+    string coalition_color = Context.Session.GetString("CoalitionColor");
+    string token = Context.Session.GetString("Token");
+}
+
+@section heads{
+    <link rel="stylesheet" href="/Admin/css/user-dashboard.css">
+    <style>
+        b, .intra-header, .level-text{
+	    color: @coalition_color!important;
+        }
+        .progress-bar{
+            background-color: @coalition_color!important;
+        }
+    </style>
+}
+
+@section scripts{
+
+}
+
+
+
+@if (role == "USER")
+{
+    <div class="card intra-profile" style="background: url(@coalition_bg);background-size: cover;">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                             <div id="info-row" class="row justify-content-between">
+                                <div class="col-12 py-2">
+                                    <b class="h4">Kullanıcı Adı: </b>
+                                    <span class="ml-1 h4 text-white">@login</span>
+                                </div>
+                                <div class="col-12 py-2">
+                                    <b class="h4">Cüzdan: </b>
+                                    <span class="ml-1 h4 text-white">@wallet ₳</span>
+                                </div>
+                                <div class="col-12 py-2">
+                                    <b class="h4">Evaluation Puanı: </b>
+                                    <span class="ml-1 h4 text-white">@evaluation</span>
+                                </div>
+                                <div class="col-12 py-2">
+                                    <b class="h4">Koalisyon: </b>
+                                    <span class="ml-1 h4 text-white">@coalition_name</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+                <div class="col-md-8">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="card text-white bg-primary align-items-center">
+                                <div class="card-header">
+                                    <h4 class="text-white intra-header">Kampüs</h4>                             
+                                </div>
+                                <div class="card-body">
+                                    <h3 class="text-white text-center" id="campus">@campus</h3>
+                                </div>
+                            </div>
+                        </div>
+                         <div class="col-6">
+                            <div class="card text-white bg-primary align-items-center">
+                                <div class="card-header card-block text-center">
+                                    <h4 class="text-white intra-header">Blackhole Tarihi</h4>                             
+                                </div>
+                                <div class="card-body">
+                                    <h3 class="text-white text-center" id="blackhole">@date</h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="card text-white bg-primary">
+                                <div class="card-header align-self-center">
+                                    <h4  class="text-white intra-header">Seviye</h4>                             
+                                </div>
+                                <div class="card-body pt-3">
+                                <h4 class="text-white mt-auto text-center">@level</h4>
+                                <div class="progress" style="height: 40px;">
+                                    <div id="level-bar" class="progress-bar progress-animated" style="width: @afterDecimal%; height:40px;" role="progressbar">                                      
+                                    </div>
+                                </div>                               
+                            </div>                           
+                            </div>
+                        </div>       
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+}
+
+
+

@@ -1,0 +1,52 @@
+﻿@model Ecole42WebUI.Areas.Admin.ViewModels.UsefulLinkViewModel
+
+<div class="modal fade" tabindex="-1" role="dialog" id="updateModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Link Güncelle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="update-form" method="post">
+                <div class="modal-body">
+                    <div class="form-group row">
+                        <input type="hidden" name="ID" value="@Model.ProjectUsefulLink.UsefulLinkID" />
+                        <div class="col-12 form-group">
+                            <label for="projectID">Proje</label>
+                            <select class="form-control" name="projectID">
+                                <optgroup label="Kategori seçiniz">
+                                    @foreach (var item in Model.Projects)
+                                    {
+                                        if (Model.ProjectUsefulLink.ProjectID != item.ID)
+                                        {
+                                            <option value="@item.ID">@item.Title</option>
+                                        }
+                                        else
+                                        {
+                                            <option selected value="@item.ID">@item.Title</option>
+                                        }
+                                    }
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="col-12 form-group">
+                            <label for="Title">Başlık</label>
+                            <input type="text" class="form-control" value="@Model.ProjectUsefulLink.UsefulLink.Title" name="Title" required />
+                        </div>
+                        <div class="col-12 form-group">
+                            <label for="URL">URL</label>
+                            <input type="url" class="form-control" value="@Model.ProjectUsefulLink.UsefulLink.URL" name="URL" required />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="btnSubmitUpdate" class="btn btn-primary">Güncelle</button>
+                    <button type="button" id="btnCloseUpdateModal" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

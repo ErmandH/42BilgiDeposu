@@ -1,0 +1,24 @@
+﻿@model Article
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section heads{
+    <link rel="stylesheet" href="/User/assets/css/base.css">
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title--large">@Model.Title.ToUpper()</h4>
+                <div>
+                    <span class="text-muted">YAZAR: @Model.AuthorName.ToUpper() @Model.AuthorSurname.ToUpper() / TARİH: @Model.CreateDate</span>
+                </div>             
+            </div>
+            <div class="card-body">
+                @Html.Raw(Model.Description)
+            </div>
+        </div>
+    </div>
+</div>

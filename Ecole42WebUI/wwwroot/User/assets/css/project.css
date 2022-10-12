@@ -1,0 +1,21 @@
+﻿.card a{
+    font-size:20px!important;
+    margin-left:10px;
+}
+
+.card{
+    height:100%;
+}
+
+.list-icon{
+    font-size:10px;
+}
+
+body{
+    background-image: url('/Admin/images/intra-bg.jpg');
+    background-size: cover;
+}
+
+.footer{
+    background-color:transparent!important;
+}

@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Ecole42Entity.Entity.ProjectFunction>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section scripts{
+    <script src="~/js/list-function.js"></script>
+}
+
+<div class="container ml-0 mt-0">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Fonksiyon Listesi</h4>
+        </div>
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <a type="button" href="/admin/add-function" class="btn btn-primary">Veri Ekle</a>
+                <div class="input-group search-area right d-lg-inline-flex d-none">
+                    <input type="text" id="search-bar" class="form-control" placeholder="Arama...">
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table class="table primary-table-bordered">
+                    <thead class="thead-primary">
+                        <tr>
+                            <th scope="col">Fonksiyon Adı</th>
+                            <th scope="col">Proje Adı</th>
+                            <th scope="col">İŞLEMLER</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-data">
+                        @if (Model.Count() != 0)
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr role="row">
+                                    <td>@item.Function.Name</td>
+                                    <td>@item.Project.Title</td>
+                                    <td>
+                                        <a style="color:white; cursor:pointer" class="btnDetail btn btn-primary shadow btn-xs sharp mr-1" href="/admin/update-function/@item.ID"><i class="fa fa-pencil"></i></a>
+                                        <a style="color:white; cursor:pointer" class="btnDelete btn btn-danger shadow btn-xs sharp mr-1" data-id="@item.FunctionID"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+

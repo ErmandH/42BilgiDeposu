@@ -1,0 +1,50 @@
+﻿.page-content {
+    background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('../images/42istanbul.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100vh !important;
+}
+
+.page-content > .container-fluid{
+    height:100%!important;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.footer{
+    background-color:transparent!important;
+}
+
+
+
+
+#main-txt{
+    font-size:60px;
+    margin-left:20px;
+    margin-top:10px;
+}
+
+@media (max-width:1049px){
+    #main-txt{
+        display:block;
+    }
+    #main-txt-wrapper {
+        text-align:center;
+    }
+}
+
+@media (min-width: 1050px) and (max-width:1234px ) {
+    #main-txt {
+        font-size: 55px;
+    }
+}
+
+#main-txt-wrapper{
+    padding:0 30px;
+}
+
+#p-text {
+    max-width: 970px;
+    padding: 0 30px;
+}

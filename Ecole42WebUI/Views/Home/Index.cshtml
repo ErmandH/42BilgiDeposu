@@ -1,0 +1,24 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    string token = "";
+    if (Context.Session.GetString("Email") != null)
+        token = Context.Session.GetString("Token");
+}
+
+@section heads{ 
+        <link href="~/User/assets/css/style.css" rel="stylesheet" type="text/css" />
+}
+
+@section scripts{
+    <script src="/js/home.js"></script>
+}
+
+<div id="42main" data-token="@token" class="d-flex justify-content-center align-items-center flex-column">
+    <div id="main-txt-wrapper">
+        <img src="~/Admin/images/logos/42-logo.svg" width="150" height="150" />
+        <span id="main-txt" class="h1 text-white font-weight-bolder">Bilgi Deposuna Hoş Geldiniz</span>
+    </div>
+    <p id="p-text" class="text-white h3 text-center">
+        42 Öğrencileri tarafından hazırlanan ana eğitim projeleri ile alakalı içeriklere <a href="/projects">Projeler</a> sekmesinden, kodlama veya eğitimde kullanılan kütüphaneler hakkında yazılan içeriklere <a href="/articles">Makaleler</a> sekmesinden ulaşabilirsiniz.
+    </p>
+</div>

@@ -1,0 +1,120 @@
+﻿@model ProjectsViewModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section heads{ 
+    <link href="~/User/assets/css/project.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/User/assets/css/base.css">
+}
+
+<div class="row gy-3" id="42main">
+
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title--large">Birinci Halka</h2>
+            </div>
+            <div class="card-body">
+                <div>
+                    <ul class="list-inline d-flex flex-column justify-content-between pl-2">
+                        @foreach (var item in Model.FirstCircle)
+                        {
+                            <li class="list-item"><i class='bx bxs-circle list-icon'></i><a class="ml-2" href="/project/@item.ID">@item.Title</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title--large">İkinci Halka</h2>
+            </div>
+            <div class="card-body">
+                <div>
+                    <ul class="list-inline d-flex flex-column justify-content-between pl-2">
+                        @foreach (var item in Model.SecondCircle)
+                        {
+                            <li class="list-item"><i class='bx bxs-circle list-icon'></i><a class="ml-2" href="/project/@item.ID">@item.Title</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title--large">Üçüncü Halka</h2>
+            </div>
+            <div class="card-body">
+                <div>
+                    <ul class="list-inline d-flex flex-column justify-content-between pl-2">
+                        @foreach (var item in Model.ThirdCircle)
+                        {
+                            <li class="list-item"><i class='bx bxs-circle list-icon'></i><a class="ml-2" href="/project/@item.ID">@item.Title</a></li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title--large">Dördüncü Halka</h2>
+            </div>
+            <div class="card-body">
+                <div>
+                    <ul class="list-inline d-flex flex-column justify-content-between pl-2">
+                        @foreach (var item in Model.FourthCircle)
+                        {
+                            <li class="list-item"><i class='bx bxs-circle list-icon'></i><a class="ml-2" href="/project/@item.ID">@item.Title</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title--large">Beşinci Halka</h2>
+            </div>
+            <div class="card-body">
+                <div>
+                    <ul class="list-inline d-flex flex-column justify-content-between pl-2">
+                        @foreach (var item in Model.FifthCircle)
+                        {
+                            <li class="list-item"><i class='bx bxs-circle list-icon'></i><a class="ml-2" href="/project/@item.ID">@item.Title</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title--large">Altıncı Halka</h2>
+            </div>
+            <div class="card-body">
+                <div>
+                    <ul class="list-inline d-flex flex-column justify-content-between pl-2">
+                        @foreach (var item in Model.SixthCircle)
+                        {
+                            <li class="list-item"><i class='bx bxs-circle list-icon'></i><a class="ml-2" href="/project/@item.ID">@item.Title</a></li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

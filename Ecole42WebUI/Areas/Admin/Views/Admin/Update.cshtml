@@ -1,0 +1,46 @@
+﻿@model Ecole42Entity.Entity.Admin
+
+<div class="modal fade" tabindex="-1" role="dialog" id="updateModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kullanıcı Güncelle</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="update-form" method="post" action="/admin/update-user">
+                <div class="modal-body">
+                    <input type="hidden" value="@Model.ID" name="ID" />
+                    <div class="form-group row">
+                        <div class="col-12 form-group">
+                            <label for="Name">Ad</label>
+                            <input type="text" class="form-control" required name="Name" value="@Model.Name" />
+                        </div>
+                        <div class="col-12 form-group">
+                            <label for="Surname">Soyad</label>
+                            <input type="text" class="form-control" required name="Surname" value="@Model.Surname" />
+                        </div>
+                        <div class="col-12 form-group">
+                            <label for="Email">E-Posta</label>
+                            <input type="email" class="form-control" required name="Email" value="@Model.Email" />
+                        </div>
+                        <div class="col-12 form-group">
+                            <label for="pass">Şifre</label>
+                            <input type="text" class="form-control" value="@Model.Password" required name="pass" />
+                        </div>
+                        <div class="col-12 form-group">
+                            <label for="repass">Şifrenizi tekrar girin</label>
+                            <input type="text" class="form-control" value="@Model.Password"  required name="repass" />
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+            <div class="modal-footer">
+                <button type="button" id="btnUpdate" class="btn btn-primary">Değişiklikleri Kaydet</button>
+                <button type="button" id="btnClose" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>

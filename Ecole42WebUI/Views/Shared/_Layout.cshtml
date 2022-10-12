@@ -1,0 +1,225 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    string email = null;
+    if (Context.Session.GetString("Email") != null)
+    {
+        email = Context.Session.GetString("Email");
+        string name = Context.Session.GetString("Name");
+        string surname = Context.Session.GetString("Surname");
+        string role = Context.Session.GetString("Role");
+        string image = Context.Session.GetString("Image");
+        string intraID = Context.Session.GetString("intraID");
+    }  
+}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8" />
+    <title>42 Bilgi Deposu</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <link rel="shortcut icon" href="/Admin/images/logos/42_Logo.svg">
+    <link href="/User/assets/css/bootstrap.min.css" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <link href="/User/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="/User/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
+    <link href="/User/assets/css/layout.css" rel="stylesheet" type="text/css" />
+    @RenderSection("heads", required: false)
+</head>
+
+<body data-layout="horizontal" data-topbar="dark">
+
+    <div id="layout-wrapper">
+        <header id="page-topbar" class="ishorizontal-topbar">
+            <div class="navbar-header">
+                <div class="d-flex">
+                    <div class="navbar-brand-box">
+                        <a href="/" class="logo logo-light">
+                            <span class="logo-sm">
+                                <img src="/Admin/images/logos/42-logo.svg" alt="" height="22">
+                            </span>
+                            <span class="logo-lg">
+                                <img src="/Admin/images/logos/42-logo.svg" alt="" height="22"> <span class="logo-txt h2">Bilgi Deposu</span>
+                            </span>
+                        </a>
+                    </div>
+
+                    <button type="button" class="btn btn-sm px-3 font-size-16 d-lg-none header-item" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
+                        <i class='bx bx-menu'></i>
+                    </button>
+                    <div class="topnav">
+                        <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
+
+                            <div class="collapse navbar-collapse" id="topnav-menu-content">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="/" id="topnav-dashboard" role="button"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class='bx bxs-home'></i>
+                                            <span data-key="t-dashboards">Ana Sayfa</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="/projects" id="topnav-dashboard" role="button"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class='bx bx-list-ul'></i>
+                                            <span data-key="t-dashboards">Projeler</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="/articles" id="topnav-dashboard" role="button"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class='bx bxs-edit-alt'></i>
+                                            <span data-key="t-dashboards">Makeleler</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link dropdown-toggle arrow-none" href="/questions" id="topnav-dashboard" role="button"
+                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class='bx bx-question-mark'></i>
+                                            <span data-key="t-dashboards">Sorular</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div class="dropdown d-inline-block">
+                        <button type="button" class="btn header-item"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="icon-sm" data-feather="search"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0">
+                            <form class="p-3">
+                                <div class="search-box">
+                                    <div class="position-relative">
+                                        <input type="text" class="form-control rounded" placeholder="Arama..." onkeyup="showResult(this.value)">
+                                        <i class="mdi mdi-magnify search-icon"></i>
+                                        <div id="livesearch" class="row mx-0"></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div> <!-- end -->         
+                    </div>
+                    <div class="dropdown d-inline-block language-switch">
+                        @if (email == null)
+                        {
+                            <button id="btnLogin" type="button" class="btn header-item">
+                               <i style="margin-top:4px ;" class="bx bxs-log-in"></i> Giriş Yap
+                            </button>
+                        }
+                        else
+                        {
+                            <button id="btnPanel" type="button" class="btn header-item">
+                               <i style="margin-top:4px ;" class="bx bxs-user"></i> Panele Dön
+                            </button>
+                            <button id="btnLogout" type="button" class="btn header-item">
+                                 <i style="margin-top:4px ;" class="bx bxs-log-out"></i> Çıkış Yap
+                            </button>
+                        }
+                        </div>
+                   @* <div class="topnav">
+                        <nav class="navbar navbar-light navbar-expand-lg topnav-menu">
+
+                            <div class="collapse navbar-collapse" id="topnav-menu-content">
+                                <ul class="navbar-nav">
+                                     <button type="button" class="btn header-item"
+                                    data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="icon-sm" data-feather="search"></i>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0">
+                                        <form class="p-3">
+                                            <div class="search-box">
+                                                <div class="position-relative">
+                                                    <input type="text" class="form-control rounded" placeholder="Arama..." onkeyup="showResult(this.value)">
+                                                    <i class="mdi mdi-magnify search-icon"></i>
+                                                    <div id="livesearch" class="row mx-0"></div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div> <!-- end -->                                                                     
+                                    @if (email == null)
+                                    {                                      
+                                        <li class="nav-item nav-login">
+                                            <a class="nav-link dropdown-toggle arrow-none" href="/admin/login" id="topnav-dashboard" role="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class='bx bx-log-in'></i>
+                                                <span data-key="t-dashboards">Giriş Yap</span>
+                                            </a>
+                                        </li> 
+                                    }
+                                    else
+                                    {
+                                        <li class="nav-item">
+                                            <a class="nav-link dropdown-toggle arrow-none" href="/admin/dashboard" id="topnav-dashboard" role="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class='bx bx-user'></i>
+                                                <span data-key="t-dashboards">Panele Dön</span>
+                                            </a>
+                                        </li>      
+                                        <li class="nav-item">
+                                            <a class="nav-link dropdown-toggle arrow-none" href="/admin/logout" id="topnav-dashboard" role="button"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class='bx bx-log-out'></i>
+                                                <span data-key="t-dashboards">Çıkış Yap</span>
+                                            </a>
+                                        </li>                                      
+                                    }
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>*@
+            </div>
+        </header>
+
+
+        <div class="main-content">
+
+            <div class="page-content">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </div>
+ 
+
+
+            <footer class="footer">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            Created By <a href="https://www.linkedin.com/in/ermand-haruni-299771218/">Ermand Haruni</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+
+    </div>
+
+    <div class="rightbar-overlay"></div>
+
+
+    <script src="/User/assets/libs/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/User/assets/libs/metismenujs/metismenujs.min.js"></script>
+    <script src="/User/assets/libs/simplebar/simplebar.min.js"></script>
+    <script src="/User/assets/libs/feather-icons/feather.min.js"></script>
+
+    <script src="/User/assets/js/app.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet"
+          href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/atom-one-dark.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+    <script src="/js/home-layout.js"></script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>

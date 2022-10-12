@@ -1,0 +1,83 @@
+﻿@model ProjectViewModel
+
+@{
+    ViewData["Title"] = "Project";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 1;
+}
+
+@section heads{
+    <link rel="stylesheet" href="~/User/assets/css/showproject.css" />
+    <link rel="stylesheet" href="/User/assets/css/base.css">
+}
+
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title--large text-center">@Model.Project.Title</h4>
+            </div>
+            <div class="card-body">
+                @Html.Raw(Model.Project.Description)
+                @if (Model.ProjectFunctions.Count() > 0)
+                {
+                    <div id="function-wrapper">
+                        <h2 class="p-1 text-center">Fonksiyonlar</h2>
+                        <div class="row">
+                           @foreach (var item in Model.ProjectFunctions)
+                           {
+                            <div class="col-lg-2 col-sm-4 mb-3">
+                                <i class='bx bxs-circle list-icon'></i><a>@item.Function.Name</a>
+                            </div>
+                           }
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-12">
+                            <div class="accordion" id="accordionFunction">
+                                @foreach (var func in Model.ProjectFunctions)
+                                {
+                                    <div id="@func.Function.Name" class="accordion-item">
+                                        <h2 class="accordion-header" id="heading-@i">
+                                            <button class="accordion-button fw-medium" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-@i" aria-expanded="true" aria-controls="collapse-@i">
+                                                @func.Function.Name
+                                            </button>
+                                        </h2>
+                                        <div id="collapse-@i" class="accordion-collapse collapse" aria-labelledby="heading-@i" data-bs-parent="#accordionFunction">
+                                            <div class="accordion-body">
+                                                <div class="text-muted">
+                                                    @Html.Raw(func.Function.Description)
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    i = i + 1;
+                                }
+
+                            </div><!-- end accordion -->
+                        </div><!-- end col -->
+                    </div><!--  end row -->
+                }
+                @if (Model.ProjectUsefulLinks.Count() > 0)
+                {
+                    <hr>
+                    <h4>Kullanışlı Kaynaklar</h4>
+                    <div id="link-wrapper">
+                        <div class="row">
+                            @foreach (var link in Model.ProjectUsefulLinks)
+                            {
+                                <div class="col-12">
+                                   <span>- </span>
+                                   <a href="@link.UsefulLink.URL">@link.UsefulLink.Title</a>
+                                </div>
+                            }                        
+                        </div>
+                    </div>               
+                }
+                </div>
+        </div>
+    </div>
+</div>
+

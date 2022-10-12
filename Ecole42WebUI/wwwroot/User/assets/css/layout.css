@@ -1,0 +1,14 @@
+.search-result{
+	border: 1px solid #e2e5e8;
+	padding: .47rem .75rem;
+}
+
+#btnLogin, #btnLogout, #btnPanel{
+	color:#a8b0c5;
+	font-size: 14px;
+	font-weight: 400;
+}
+
+#btnLogin:hover, #btnLogout:hover, #btnPanel:hover{
+	color:#fff;
+}
